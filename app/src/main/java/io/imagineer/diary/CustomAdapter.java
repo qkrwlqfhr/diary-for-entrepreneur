@@ -12,14 +12,16 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.RealmResults;
+
 public class CustomAdapter extends ArrayAdapter<Article> {
     private Context mContext;
-    private ArrayList<Article> mArticles;
+    private RealmResults<Article> mArticles;
 
     public CustomAdapter(@NonNull Context context, int resource, @NonNull List<Article> objects) {
         super(context, resource, objects);
         this.mContext = context;
-        this.mArticles = (ArrayList<Article>) objects;
+        this.mArticles = (RealmResults<Article>) objects;
     }
 
     @NonNull
