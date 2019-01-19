@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
                 final Article article = realm.where(Article.class).equalTo("title",mTitle).findFirst();
                 article.deleteFromRealm();
                 realm.commitTransaction();
+
+                finish();
                 //Article addition
 /*                String titleText = mTileEditText.getText().toString();
                 String contentText = mContentEditText.getText().toString();

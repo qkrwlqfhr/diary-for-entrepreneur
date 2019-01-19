@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import io.realm.Realm;
+import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
 
 public class ListActivity extends AppCompatActivity {
@@ -40,6 +41,13 @@ public class ListActivity extends AppCompatActivity {
                 //new ArrayList<Article>(Arrays.asList(articles))
                 articles
         );
+
+        articles.addChangeListener(new RealmChangeListener<RealmResults<Article>>() {
+            @Override
+            public void onChange(RealmResults<Article> articles) {
+                adapter.notifyDataSetChanged();
+            }
+        });
         mListView.setAdapter(adapter);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
