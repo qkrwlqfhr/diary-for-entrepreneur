@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText mEditText;
     private Button mButton;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,5 +33,9 @@ public class MainActivity extends AppCompatActivity {
         };
 
         mButton.setOnClickListener(firstOnclickListener);
+        if (savedInstanceState == null){
+            String text = getIntent().getStringExtra("item");
+            mTextView.setText(text);
+        }
     }
 }
