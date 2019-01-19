@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mButton;
     private EditText mTileEditText;
     private EditText mContentEditText;
+    private String mTitle;
 
 
     @Override
@@ -32,7 +34,14 @@ public class MainActivity extends AppCompatActivity {
         View.OnClickListener firstOnclickListener = new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                String titleText = mTileEditText.getText().toString();
+                Realm.init(getApplicationContext());
+                Realm realm = Realm.getDefaultInstance();
+                realm.beginTransaction();
+                final Article article = realm.where(Article.class).equalTo("title",mTitle).findFirst();
+                article.deleteFromRealm();
+                realm.commitTransaction();
+                //Article addition
+/*                String titleText = mTileEditText.getText().toString();
                 String contentText = mContentEditText.getText().toString();
                 //mTextView.setText(text);
                 mTileEditText.setText("");
@@ -45,14 +54,19 @@ public class MainActivity extends AppCompatActivity {
                 Article article = realm.createObject(Article.class);
                 article.setTitle(titleText);
                 article.setContent(contentText);
-                realm.commitTransaction();
+                realm.commitTransaction();*/
             }
         };
 
         mButton.setOnClickListener(firstOnclickListener);
-/*        if (savedInstanceState == null){
-            String text = getIntent().getStringExtra("item");
-            mTextView.setText(text);
-        }*/
+        if (savedInstanceState == null){
+            //String text = getIntent().getStringExtra("item");
+            //mTextView.setText(text);
+            String title = getIntent().getStringExtra("title");
+            String content = getIntent().getStringExtra("content");
+            mTitle = title;
+            mTileEditText.setText(title);
+            mContentEditText.setText(content);
+        }
     }
 }

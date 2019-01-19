@@ -45,7 +45,8 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Intent intent = new Intent(ListActivity.this, MainActivity.class);
-                //intent.putExtra("item",sampleArray[position]);
+                intent.putExtra("title",articles.get(position).getTitle());
+                intent.putExtra("content",articles.get(position).getContent());
                 startActivity(intent);
             }
         });
