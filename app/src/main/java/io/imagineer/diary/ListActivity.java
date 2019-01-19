@@ -8,6 +8,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class ListActivity extends AppCompatActivity {
     private ListView mListView;
 
@@ -16,17 +19,22 @@ public class ListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        final String[] sampleArray = {"hello","thid","is","test"};
+        //final String[] sampleArray = {"hello","thid","is","test"};
+        Article[] articles = {
+                new Article("title1","content1"),
+                new Article("title2","content2"),
+                new Article("title3","content3"),
+        };
 
         mListView = (ListView) findViewById(R.id.listView);
-        ArrayAdapter<String>  adapter = new ArrayAdapter<String>(this, R.layout.list_item, sampleArray);
-
+        //ArrayAdapter<String>  adapter = new ArrayAdapter<String>(this, R.layout.list_item, sampleArray);
+        CustomAdapter adapter = new CustomAdapter(this, R.layout.list_row, new ArrayList<Article>(Arrays.asList(articles)));
         mListView.setAdapter(adapter);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Intent intent = new Intent(ListActivity.this, MainActivity.class);
-                intent.putExtra("item",sampleArray[position]);
+                //intent.putExtra("item",sampleArray[position]);
                 startActivity(intent);
             }
         });
